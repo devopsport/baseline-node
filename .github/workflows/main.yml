@@ -32,6 +32,7 @@ jobs:
 
     - name: Run Snyk to check Static Application Security Testing
       run: |
+        cd app/
         curl https://static.snyk.io/cli/latest/snyk-linux -o /usr/local/bin/snyk
         chmod +x /usr/local/bin/snyk
         snyk auth "${{ secrets.SNYK_TOKEN }}"
@@ -39,8 +40,6 @@ jobs:
 
     - name: Run Snyk to check Open-Source vulnerabilities
       run: |
-        curl https://static.snyk.io/cli/latest/snyk-linux -o /usr/local/bin/snyk
-        chmod +x /usr/local/bin/snyk
-        snyk auth "${{ secrets.SNYK_TOKEN }}"
+        cd app/
         snyk monitor --project-name="${{ env.REPOSITORY_NAME }}"
         snyk test --org="${{ secrets.SNYK_ORG }}" --project-name=${{ env.REPOSITORY_NAME }} --severity-threshold=medium

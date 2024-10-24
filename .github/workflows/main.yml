@@ -47,9 +47,9 @@ jobs:
 
     - name: Build
       run: |
-        DOCKER_UID=$(shell id -u)
-        DOCKER_GID=$(shell id -g)
-        DOCKER_USER=$(shell whoami)
+        DOCKER_UID=$(id -u)
+        DOCKER_GID=$(id -g)
+        DOCKER_USER=$(whoami)
         echo "${DOCKER_USER}:x:${DOCKER_UID}:${DOCKER_GID}::/app:/sbin/nologin" > passwd
         aws ecr get-login-password --region ${{ secrets.AWS_DEFAULT_REGION }} | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query Account --output text).dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com
         docker pull 509472714099.dkr.ecr.us-east-1.amazonaws.com/npm:v0.0.4

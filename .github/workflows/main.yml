@@ -17,6 +17,13 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+        aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+        aws-region: '${{ secrets.AWS_DEFAULT_REGION }}'
+
     - name: Generate REPOSITORY_NAME
       run: echo "REPOSITORY_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f2)" >> $GITHUB_ENV
 
@@ -37,6 +44,16 @@ jobs:
         chmod +x /usr/local/bin/snyk
         snyk auth "${{ secrets.SNYK_TOKEN }}"
         snyk code test --org="${{ secrets.SNYK_ORG }}" --project-name="${{ env.REPOSITORY_NAME }}" --severity-threshold=medium
+
+    - name: Build
+      run: |
+        DOCKER_UID=$(shell id -u)
+        DOCKER_GID=$(shell id -g)
+        DOCKER_USER=$(shell whoami)
+        echo "${DOCKER_USER}:x:${DOCKER_UID}:${DOCKER_GID}::/app:/sbin/nologin" > passwd
+        aws ecr get-login-password --region ${{ secrets.AWS_DEFAULT_REGION }} | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query Account --output text).dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com
+        docker pull 509472714099.dkr.ecr.us-east-1.amazonaws.com/npm:v0.0.4
+        docker run --rm -u ${DOCKER_UID}:${DOCKER_GID} -v ${PWD}/passwd:/etc/passwd:ro -v ${PWD}/app:/app 509472714099.dkr.ecr.us-east-1.amazonaws.com/npm:v0.0.4
 
     - name: Run Snyk to check Open-Source vulnerabilities
       run: |

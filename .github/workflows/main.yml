@@ -6,6 +6,11 @@ on:
       - master
       - feature/*
 
+env:
+  PROJECT_NAME: ${{ env.PROJECT_NAME }}
+  SERVICE_NAME: ${{ env.SERVICE_NAME }}
+  GITHUB_REF_NAME: ${{ env.GITHUB_REF_NAME }}
+
 jobs:
   Pipeline:
     name: Default

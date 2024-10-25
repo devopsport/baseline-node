@@ -1,5 +1,5 @@
 let activateColor = false;
-const backendUrl = 'http://172.23.162.4:5000';
+const backendUrl = process.env.BACKEND_URL;
 
 async function fetchActivateColor() {
   try {

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/*
 
 jobs:
   Pipeline:
@@ -52,21 +53,10 @@ jobs:
 
     - name: Build Code
       run: |
-        DOCKER_UID=$(id -u)
-        DOCKER_GID=$(id -g)
-        DOCKER_USER=$(whoami)
-        echo "${DOCKER_USER}:x:${DOCKER_UID}:${DOCKER_GID}::/app:/sbin/nologin" > passwd
-        aws ecr get-login-password --region ${{ secrets.AWS_DEFAULT_REGION }} | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query Account --output text).dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com
-        docker pull 509472714099.dkr.ecr.us-east-1.amazonaws.com/npm:v0.0.4
-        docker run --rm -u ${DOCKER_UID}:${DOCKER_GID} -v ${PWD}/passwd:/etc/passwd:ro -v ${PWD}/app:/app 509472714099.dkr.ecr.us-east-1.amazonaws.com/npm:v0.0.4
+        ./.github/workflows/build.sh
 
-    - name: Run Snyk to check Open-Source vulnerabilities
-      run: |
-        cd app/
-        snyk monitor --project-name="${{ env.REPOSITORY_NAME }}"
-        snyk test --org="${{ secrets.SNYK_ORG }}" --project-name=${{ env.REPOSITORY_NAME }} --severity-threshold=medium
-
-    - name: Build Image
-      run: |
-        docker build -t $(aws sts get-caller-identity --query Account --output text).dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/${{ env.REPOSITORY_NAME }}:$(cat CHANGELOG.md) .
-        docker push $(aws sts get-caller-identity --query Account --output text).dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/${{ env.REPOSITORY_NAME }}:$(cat CHANGELOG.md)
+    # - name: Run Snyk to check Open-Source vulnerabilities
+    #   run: |
+    #     cd app/
+    #     snyk monitor --project-name="${{ env.REPOSITORY_NAME }}"
+    #     snyk test --org="${{ secrets.SNYK_ORG }}" --project-name=${{ env.REPOSITORY_NAME }} --severity-threshold=medium

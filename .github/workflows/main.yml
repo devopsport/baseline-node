@@ -9,7 +9,6 @@ on:
 env:
   PROJECT_NAME: ${{ vars.PROJECT_NAME }}
   SERVICE_NAME: ${{ vars.SERVICE_NAME }}
-  GITHUB_REF_NAME: ${{ vars.GITHUB_REF_NAME }}
 
 jobs:
   Pipeline:

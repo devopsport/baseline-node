@@ -28,16 +28,6 @@ jobs:
     - name: Generate REPOSITORY_NAME
       run: echo "REPOSITORY_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f2)" >> $GITHUB_ENV
 
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      with:
-        args: >
-          -Dsonar.organization=team-devopsport
-          -Dsonar.projectKey=${{ env.REPOSITORY_NAME }}
-          -Dsonar.qualitygate.wait=true
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
     - name: Run Snyk to check Static Application Security Testing
       run: |
         cd app/
@@ -59,3 +49,14 @@ jobs:
         cd app/
         snyk monitor --project-name="${{ env.REPOSITORY_NAME }}"
         snyk test --org="${{ secrets.SNYK_ORG }}" --project-name=${{ env.REPOSITORY_NAME }} --severity-threshold=medium
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      with:
+        args: >
+          -Dsonar.organization=team-devopsport
+          -Dsonar.projectKey=${{ env.REPOSITORY_NAME }}
+          -Dsonar.qualitygate.wait=true
+          -Dsonar.javascript.lcov.reportPaths=./app/coverage/lcov.info
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

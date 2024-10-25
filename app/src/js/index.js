@@ -15,8 +15,11 @@ async function fetchActivateColor() {
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
   let color = '#';
+  const array = new Uint8Array(6);
+  window.crypto.getRandomValues(array);
+
   for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+    color += letters[array[i] % 16];
   }
   return color;
 }

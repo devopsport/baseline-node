@@ -30,8 +30,8 @@ jobs:
         aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
         aws-region: '${{ secrets.AWS_DEFAULT_REGION }}'
 
-    # - name: Generate REPOSITORY_NAME
-    #   run: echo "REPOSITORY_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f2)" >> $GITHUB_ENV
+    - name: Generate REPOSITORY_NAME
+      run: echo "REPOSITORY_NAME=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f2)" >> $GITHUB_ENV
 
     # - name: Run Snyk to check Static Application Security Testing
     #   run: |

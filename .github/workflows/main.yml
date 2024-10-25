@@ -71,7 +71,7 @@ jobs:
 
     - name: Init Terraform
       run: |
-        sed -i 's/workspaceName/${PROJECT_NAME}-${ENV}-${SERVICE_NAME}/g' terraform/config.remote.tfbackend
+        sed -i 's/workspaceName/'${PROJECT_NAME}-${ENV}-${SERVICE_NAME}'/g' terraform/config.remote.tfbackend
         sed -i 's/TF_TOKEN/${{ secrets.TF_TOKEN }}/g' terraform/terraformrc
         mv terraform/terraformrc ${HOME}/.terraformrc
         cd terraform/

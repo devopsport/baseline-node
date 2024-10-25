@@ -40,8 +40,8 @@ jobs:
     #     snyk auth "${{ secrets.SNYK_TOKEN }}"
     #     snyk code test --org="${{ secrets.SNYK_ORG }}" --project-name="${{ env.REPOSITORY_NAME }}" --severity-threshold=medium
 
-    # - name: Build Code
-    #   run: ./.github/workflows/build.sh
+    - name: Build Code
+      run: ./.github/workflows/build.sh
 
     # - name: Jest
     #   run: ./.github/workflows/test.sh

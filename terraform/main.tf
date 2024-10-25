@@ -1,4 +1,4 @@
-module "vpc" {
+module "main" {
   source         = "github.com/devopsport/spa"
 
   project          = var.project

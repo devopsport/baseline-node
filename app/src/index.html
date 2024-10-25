@@ -3,25 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario Usuario</title>
+  <title>SPA Example</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Ingresa tu Usuario</h1>
-  <form id="userForm">
-    <input type="text" id="userInput" placeholder="Escribe tu usuario..." required>
-    <button type="submit">Enviar</button>
-  </form>
+  <div class="content">
+    <p class="intro-text">Ingresa tu usuario</p>
+    
+    <form id="userForm">
+      <input type="text" id="username" placeholder="Escribe tu nombre de usuario" required>
+      <button type="submit">Enviar</button>
+    </form>
+    
+    <div id="userList">
+      <div class="table-container">
+        <table id="userTable">
+          <thead>
+            <tr>
+              <th>Usuarios ingresados</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Los usuarios ingresados aparecerán aquí -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-  <h2>Usuarios Ingresados</h2>
-  <table id="usersTable">
-    <thead>
-      <tr>
-        <th>Nombre de Usuario</th>
-      </tr>
-    </thead>
-    <tbody id="usersBody">
-    </tbody>
-  </table>
+  <footer>
+    <p class="footer-text">Marca registrada por DevOpsPort | Versión v0.0.1</p>
+  </footer>
+
+  <script src="bundle.js"></script>
 </body>
 </html>

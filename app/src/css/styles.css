@@ -1,25 +1,76 @@
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   font-family: 'Roboto', sans-serif;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f4f4f9;
 }
-h1, h2, p, label, input, button, th, td {
-  text-align: center;
-  color: black;
+
+.intro-text {
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
-table {
-  width: 50%;
-  margin-top: 20px;
-  border-collapse: collapse;
-}
-table, th, td {
-  border: 1px solid black;
-}
-th, td {
+
+input, button {
   padding: 10px;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+#userList {
+  margin-top: 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-title {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.table-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+  max-width: 700px;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #333;
+  padding: 8px;
+}
+
+th {
+  background-color: #ddd;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.8em;
+  color: #666;
+  padding: 10px;
+}
+
+.footer-text {
+  font-style: italic;
 }

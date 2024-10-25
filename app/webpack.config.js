@@ -1,8 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = (env) => {
+  const isProduction = env.NODE_ENV === 'production';
+
   return {
     entry: './src/js/index.js',
     output: {
@@ -14,7 +17,10 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
+          use: [
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+            'css-loader',
+          ],
         },
         {
           test: /\.js$/,
@@ -33,12 +39,15 @@ module.exports = (env) => {
         template: './src/index.html',
       }),
       new Dotenv({
-        path: `./.env.${env.NODE_ENV}` // Carga el archivo .env correspondiente al entorno
+        path: `./.env.${env.NODE_ENV}`,
+      }),
+      new MiniCssExtractPlugin({
+        filename: 'styles.css',
       }),
     ],
     devServer: {
       static: './dist',
     },
-    mode: env.NODE_ENV === 'production' ? 'production' : 'development',
+    mode: isProduction ? 'production' : 'development',
   };
 };

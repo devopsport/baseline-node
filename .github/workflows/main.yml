@@ -7,9 +7,9 @@ on:
       - feature/*
 
 env:
-  PROJECT_NAME: ${{ env.PROJECT_NAME }}
-  SERVICE_NAME: ${{ env.SERVICE_NAME }}
-  GITHUB_REF_NAME: ${{ env.GITHUB_REF_NAME }}
+  PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+  SERVICE_NAME: ${{ vars.SERVICE_NAME }}
+  GITHUB_REF_NAME: ${{ vars.GITHUB_REF_NAME }}
 
 jobs:
   Pipeline:

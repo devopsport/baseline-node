@@ -7,7 +7,4 @@ else
   ENV="staging"
 fi
 
-echo "PROJECT_NAME: ${PROJECT_NAME}"
-echo "SERVICE_NAME: ${SERVICE_NAME}"
-echo "GITHUB_REF_NAME: ${GITHUB_REF_NAME}"
-echo "ENV: ${ENV}"
+aws s3 sync app/dist/ s3://${PROJECT_NAME}-${ENV}-${SERVICE_NAME}/ --delete --acl public-read

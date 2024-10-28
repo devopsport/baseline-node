@@ -52,7 +52,7 @@ jobs:
       with:
         args: >
           -Dsonar.organization=team-devopsport
-          -Dsonar.projectKey=${{ env.REPOSITORY_NAME }}
+          -Dsonar.projectKey=devopsport_${{ env.REPOSITORY_NAME }}
           -Dsonar.qualitygate.wait=true
           -Dsonar.javascript.lcov.reportPaths=./app/coverage/lcov.info
       env:

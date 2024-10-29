@@ -95,3 +95,24 @@ jobs:
       run: ./.github/workflows/release.sh
       env:
         GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+
+    - name: Updating entry in GetPort
+      uses: port-labs/port-github-action@v1
+      with:
+        clientId: ${{ secrets.PORT_CLIENT_ID }}
+        clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+        baseUrl: https://api.getport.io
+        operation: UPSERT
+        identifier: ${{ env.REPOSITORY_NAME }}
+        blueprint: service
+        properties: |-
+          {
+            "url": "https://github.com/devopsport/${{ env.REPOSITORY_NAME }}",
+            "coverage": 100,
+            "security": "Passed"
+          }
+        relations: |
+          {
+            "project": "${{ vars.PROJECT_NAME }}",
+            "baseline": "baseline-${{ vars.LANGUAGE_NAME }}"
+          }

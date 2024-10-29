@@ -1,4 +1,4 @@
-project = "falcon"
+project = ""
 env     = "staging"
-service = "spa"
-domain  = "spa.falcon.staging.punkerside.io"
+service = ""
+domain  = ""

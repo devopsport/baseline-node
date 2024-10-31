@@ -1,4 +1,2 @@
-project = ""
-env     = "prod"
-service = ""
 domain  = ""
+aws_route53_zone = "punkerside.io"

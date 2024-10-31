@@ -114,5 +114,5 @@ jobs:
         relations: |
           {
             "project": "${{ vars.PROJECT_NAME }}",
-            "baseline": "baseline-${{ vars.LANGUAGE_NAME }}"
+            "baseline": "baseline-node"
           }
